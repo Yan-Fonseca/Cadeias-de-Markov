@@ -40,6 +40,6 @@ file_path = '../biblia_completa.txt'
 bible_text = load_text(file_path)
 bible_text = preprocess_text(bible_text)
 
-build_markov_chain(bible_text, '../markov_chain_order1.json', order=1)
-build_markov_chain(bible_text, '../markov_chain_order2.json', order=2)
-build_markov_chain(bible_text, '../markov_chain_order3.json', order=3)
+build_markov_chain(bible_text, 'markov_chain_order1.json', order=1)
+build_markov_chain(bible_text, 'markov_chain_order2.json', order=2)
+build_markov_chain(bible_text, 'markov_chain_order3.json', order=3)

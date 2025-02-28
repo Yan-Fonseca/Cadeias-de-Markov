@@ -31,13 +31,13 @@ def check_initial_state(file_path, state):
     print(f"Estado '{state}' existe: {state in markov_chain}")
 
 # Verificar estados iniciais
-check_initial_state('../markov_chain_order2.json', ('no', 'princípio'))
-check_initial_state('../markov_chain_order3.json', ('no', 'princípio', 'criou'))
+check_initial_state('markov_chain_order2.json', ('no', 'princípio'))
+check_initial_state('markov_chain_order3.json', ('no', 'princípio', 'criou'))
 
 # Gerar texto
-markov_chain_order1 = '../markov_chain_order1.json'
-markov_chain_order2 = '../markov_chain_order2.json'
-markov_chain_order3 = '../markov_chain_order3.json'
+markov_chain_order1 = 'markov_chain_order1.json'
+markov_chain_order2 = 'markov_chain_order2.json'
+markov_chain_order3 = 'markov_chain_order3.json'
 
 start_words_order1 = ["no"]
 start_words_order2 = ["no", "princípio"]
