@@ -31,23 +31,23 @@ def check_initial_state(file_path, state):
     print(f"Estado '{state}' existe: {state in markov_chain}")
 
 # Verificar estados iniciais
-check_initial_state('markov_chain_order2.json', ('no', 'princípio'))
-check_initial_state('markov_chain_order3.json', ('no', 'princípio', 'criou'))
+check_initial_state('/home/yan/ufjf/markov/Cadeias-de-Markov/src/markov_chain_order2.json', ('no', 'princípio'))
+check_initial_state('/home/yan/ufjf/markov/Cadeias-de-Markov/src/markov_chain_order3.json', ('no', 'princípio', 'criou'))
 
 # Gerar texto
-markov_chain_order1 = 'markov_chain_order1.json'
-markov_chain_order2 = 'markov_chain_order2.json'
-markov_chain_order3 = 'markov_chain_order3.json'
+markov_chain_order1 = '/home/yan/ufjf/markov/Cadeias-de-Markov/src/markov_chain_order1.json'
+markov_chain_order2 = '/home/yan/ufjf/markov/Cadeias-de-Markov/src/markov_chain_order2.json'
+markov_chain_order3 = '/home/yan/ufjf/markov/Cadeias-de-Markov/src/markov_chain_order3.json'
 
-start_words_order1 = ["no"]
-start_words_order2 = ["no", "princípio"]
-start_words_order3 = ["no", "princípio", "criou"]
+start_words_order1 = ["assim"]
+start_words_order2 = ["assim", "diz"]
+start_words_order3 = ["assim", "diz", "o"]
 
-text_order1 = generate_text(markov_chain_order1, start_words_order1, 20)
+text_order1 = generate_text(markov_chain_order1, start_words_order1, 30)
 print("Texto gerado (ordem 1):", text_order1)
 
-text_order2 = generate_text(markov_chain_order2, start_words_order2, 20)
+text_order2 = generate_text(markov_chain_order2, start_words_order2, 30)
 print("Texto gerado (ordem 2):", text_order2)
 
-text_order3 = generate_text(markov_chain_order3, start_words_order3, 20)
+text_order3 = generate_text(markov_chain_order3, start_words_order3, 30)
 print("Texto gerado (ordem 3):", text_order3)
