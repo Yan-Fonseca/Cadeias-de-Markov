@@ -8,46 +8,52 @@ def load_markov_chain(file_path):
         chain = json.load(file)
     return {ast.literal_eval(k): v for k, v in chain.items()}  # Desserialização segura
 
+# Função para gerar frases destacando os estados e suas 5 transições mais prováveis
+def generate_sentence(chain, order, max_length=20):
+    state = random.choice(list(chain.keys()))  # Escolher um estado inicial aleatório
+    sentence = list(state)
 
-# Função para gerar texto
-def generate_text(markov_chain_file, start_words, length=20):
-    markov_chain = load_markov_chain(markov_chain_file)
-    current_state = tuple(start_words)
-    result = list(current_state)
-    
-    for _ in range(length):
-        if current_state not in markov_chain:
-            print(f"Estado não encontrado: {current_state}")  # Debug
+    print("\nGerando frase passo a passo...\n")
+
+    for _ in range(max_length - order):
+        if state not in chain:
             break
-        next_word = random.choice(markov_chain[current_state])
-        result.append(next_word)
-        current_state = tuple(result[-len(current_state):])
-    
-    return ' '.join(result)
+        
+        next_words = chain[state]
+        
+        # Ordenar as transições por probabilidade
+        sorted_transitions = sorted(next_words.items(), key=lambda x: x[1], reverse=True)
+        
+        # Exibir o estado atual e as 5 transições mais prováveis
+        print(f"Estado atual: {state}")
+        print("Transições mais prováveis:")
+        for word, prob in sorted_transitions[:5]:
+            print(f"  {word}: {prob:.2%}")
+        
+        # Escolher a próxima palavra com base nas probabilidades
+        next_word = random.choices(list(next_words.keys()), weights=next_words.values())[0]
+        
+        print(f"Palavra escolhida: {next_word}\n")
+        
+        sentence.append(next_word)
+        state = tuple(sentence[-order:])  # Atualizar estado para os últimos "order" palavras
+
+    return ' '.join(sentence)
 
 # Verificar se os estados iniciais existem nos JSONs
 def check_initial_state(file_path, state):
     markov_chain = load_markov_chain(file_path)
     print(f"Estado '{state}' existe: {state in markov_chain}")
 
-# Verificar estados iniciais
-check_initial_state('/home/yan/ufjf/markov/Cadeias-de-Markov/src/markov_chain_order2.json', ('no', 'princípio'))
-check_initial_state('/home/yan/ufjf/markov/Cadeias-de-Markov/src/markov_chain_order3.json', ('no', 'princípio', 'criou'))
+# Carregar uma cadeia de Markov de ordem n e gerar uma frase com explicação passo-a-passo
+chain_order1 = load_markov_chain('markov_chain_order1.json')
+sentence = generate_sentence(chain_order1, order=1)
+print("\nFrase gerada:", sentence)
 
-# Gerar texto
-markov_chain_order1 = '/home/yan/ufjf/markov/Cadeias-de-Markov/src/markov_chain_order1.json'
-markov_chain_order2 = '/home/yan/ufjf/markov/Cadeias-de-Markov/src/markov_chain_order2.json'
-markov_chain_order3 = '/home/yan/ufjf/markov/Cadeias-de-Markov/src/markov_chain_order3.json'
+chain_order2 = load_markov_chain('markov_chain_order2.json')
+sentence = generate_sentence(chain_order2, order=2)
+print("\nFrase gerada:", sentence)
 
-start_words_order1 = ["assim"]
-start_words_order2 = ["assim", "diz"]
-start_words_order3 = ["assim", "diz", "o"]
-
-text_order1 = generate_text(markov_chain_order1, start_words_order1, 30)
-print("Texto gerado (ordem 1):", text_order1)
-
-text_order2 = generate_text(markov_chain_order2, start_words_order2, 30)
-print("Texto gerado (ordem 2):", text_order2)
-
-text_order3 = generate_text(markov_chain_order3, start_words_order3, 30)
-print("Texto gerado (ordem 3):", text_order3)
+chain_order3 = load_markov_chain('markov_chain_order3.json')
+sentence = generate_sentence(chain_order3, order=3)
+print("\nFrase gerada:", sentence)
